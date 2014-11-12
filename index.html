@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <title>di.fm html5 player</title>
+  </head>
+  <body>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript"> (function($) {
+      "use strict";
+      $(document).ready(function() {
+        $('select[name=channel]').change(createPlayer);
+
+        var listenkey = window.localStorage.getItem('di.listenkey');
+        if (listenkey !== null) {
+          $("input#listenkey").val(listenkey);
+        }
+      });
+
+      var createPlayer = function() {
+        var list, channel, listenkey, player;
+        list = $('select[name=channel]')[0];
+        channel = list.options[list.selectedIndex].value;
+
+        listenkey = $("input#listenkey").val();
+
+        if (listenkey == "" || channel == "" || channel === "channel") {
+          return;
+        }
+
+        window.localStorage.setItem('di.listenkey', listenkey);
+
+        player = '<audio controls autoplay><source src="http://prem1.di.fm:80/' + channel + '?' + listenkey + '"></audio>';
+
+        $('.player').html(player);
+      }
+    })($) </script>
+    <style>
+html, body, .container {
+    height: 100%;
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+    </style>
+
+    <div class="container">
+      <select name="channel">
+        <option value="channel">Pick a channel</option> 
+        <option value="handsup">Hands up</option> 
+        <option value="harddance">Hard dance</option>
+      </select>
+
+      <div class="player"> </div>
+
+      <p>Listen key:
+      <form>
+        <input type="text" id="listenkey">
+      </form>
+
+    </div>
+  </body>
+</html>
