@@ -1,11 +1,15 @@
 <html>
   <head>
     <title>di.fm html5 player</title>
+    <link href="http://thomasf.github.io/solarized-css/solarized-light.min.css" rel="stylesheet"></link>
   </head>
   <body>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript"> (function($) {
       "use strict";
+
+      var themeLight = true;
+
       $(document).ready(function() {
         $('select[name=channel]').change(createPlayer);
 
@@ -13,6 +17,14 @@
         if (listenkey !== null) {
           $("input#listenkey").val(listenkey);
         }
+
+        var channel = window.localStorage.getItem('di.channel');
+        if (channel !== null) {
+          $('select[name=channel]').val(channel);
+          createPlayer();
+        };
+
+        $('.themeswitcher').on("click", function() { switchTheme.apply(this) });
       });
 
       var createPlayer = function() {
@@ -27,24 +39,41 @@
         }
 
         window.localStorage.setItem('di.listenkey', listenkey);
+        window.localStorage.setItem('di.channel', channel);
 
         player = '<audio controls autoplay><source src="http://prem1.di.fm:80/' + channel + '?' + listenkey + '"></audio>';
 
         $('.player').html(player);
       }
+
+      var switchTheme = function () {
+        var newLink = 'http://thomasf.github.io/solarized-css/solarized-light.min.css';
+        if (themeLight) {
+          newLink = 'http://thomasf.github.io/solarized-css/solarized-dark.min.css';
+        }
+        themeLight = !themeLight;
+
+        $('link[href*="solarized-css"]').attr('href', newLink);
+      }
     })($) </script>
     <style>
-html, body, .container {
-    height: 100%;
-}
+
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 95%;
+}
+form {
+  margin-bottom: 0;
+}
+audio {
+  margin: 10px;
 }
     </style>
 
     <div class="container">
+      <span>Channel</span>
       <select name="channel">
         <option value="channel">Pick a channel</option> 
         <option value="00sclubhits">00's Club Hits</option>
@@ -133,11 +162,16 @@ html, body, .container {
 
       <div class="player"> </div>
 
+    </div>
+
+    <footer>
+      <a href="#" class="themeswitcher">Switch theme</a>
+
       <p>Listen key:
       <form>
         <input type="text" id="listenkey">
       </form>
 
-    </div>
+    </footer>
   </body>
 </html>
