@@ -36,7 +36,8 @@
       });
 
       var createPlayer = function() {
-        var list, channel, listenkey, player;
+        var list, channel, listenkey, player, volume;
+
         list = $('select[name=channel]')[0];
         channel = list.options[list.selectedIndex].value;
 
@@ -49,9 +50,13 @@
         window.localStorage.setItem('di.listenkey', listenkey);
         window.localStorage.setItem('di.channel', channel);
 
-        player = '<audio controls autoplay><source src="//prem1.di.fm:80/' + channel + '?' + listenkey + '"></audio>';
+        volume = $('audio#player').prop("volume");
+        player = '<audio id="player" controls autoplay><source src="//prem1.di.fm:80/' + channel + '?' + listenkey + '"></audio>';
 
         $('.player').html(player);
+        $('audio#player').prop("volume", volume);
+
+        window.localStorage.setItem('di.volume', $('audio#player').prop("volume", volume));
       }
 
       var switchTheme = function () {
