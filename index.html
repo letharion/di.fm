@@ -50,13 +50,23 @@
         window.localStorage.setItem('di.listenkey', listenkey);
         window.localStorage.setItem('di.channel', channel);
 
+        // If the existing audio player has a volume set, lets re-use it.
+        // Otherwise we're likely loading the page for the first time,
+        // and we default to a saved value.
         volume = $('audio#player').prop("volume");
+        if (volume === undefined) {
+          volume = window.localStorage.getItem('di.volume');
+        }
+
         player = '<audio id="player" controls autoplay><source src="//prem1.di.fm:80/' + channel + '?' + listenkey + '"></audio>';
 
         $('.player').html(player);
-        $('audio#player').prop("volume", volume);
 
-        window.localStorage.setItem('di.volume', $('audio#player').prop("volume", volume));
+        if (volume !== undefined) {
+          $('audio#player').prop("volume", volume);
+        }
+
+        window.localStorage.setItem('di.volume', $('audio#player').prop("volume"));
       }
 
       var switchTheme = function () {
