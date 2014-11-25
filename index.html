@@ -1,10 +1,10 @@
 <html>
   <head>
     <title>di.fm html5 player</title>
-    <link href="http://thomasf.github.io/solarized-css/solarized-light.min.css" rel="stylesheet"></link>
+    <link href="//thomasf.github.io/solarized-css/solarized-light.min.css" rel="stylesheet"></link>
   </head>
   <body>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -49,15 +49,15 @@
         window.localStorage.setItem('di.listenkey', listenkey);
         window.localStorage.setItem('di.channel', channel);
 
-        player = '<audio controls autoplay><source src="http://prem1.di.fm:80/' + channel + '?' + listenkey + '"></audio>';
+        player = '<audio controls autoplay><source src="//prem1.di.fm:80/' + channel + '?' + listenkey + '"></audio>';
 
         $('.player').html(player);
       }
 
       var switchTheme = function () {
-        var newLink = 'http://thomasf.github.io/solarized-css/solarized-light.min.css';
+        var newLink = '//thomasf.github.io/solarized-css/solarized-light.min.css';
         if (themeLight) {
-          newLink = 'http://thomasf.github.io/solarized-css/solarized-dark.min.css';
+          newLink = '//thomasf.github.io/solarized-css/solarized-dark.min.css';
         }
         themeLight = !themeLight;
 
@@ -183,7 +183,7 @@ footer > *{
         <input type="text" id="listenkey">
       </form>
 
-      <a href="http://github.com/letharion/di.fm">Github</a>
+      <a href="https://github.com/letharion/di.fm">Github</a>
     </footer>
   </body>
 </html>
