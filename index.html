@@ -62,6 +62,12 @@
 
         $('.player').html(player);
 
+        // If the player has a problem, simply try to restart it.
+        $('audio#player').on('error', function(e) {
+          console.log('di.fm closed the connection. :( Waiting a second, and then restarting player');
+          setTimeout(createPlayer, 1000);
+        });
+
         if (volume !== undefined) {
           $('audio#player').prop("volume", volume);
         }
