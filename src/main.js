@@ -40,6 +40,10 @@ require([], function() {
       $('audio#player').prop("volume", volume);
     }
 
+    $('audio#player').on('volumechange', function(e) {
+      window.localStorage.setItem('di.volume', $('audio#player').prop("volume"));
+    });
+
     window.localStorage.setItem('di.volume', $('audio#player').prop("volume"));
   }
 
