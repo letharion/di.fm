@@ -44,7 +44,18 @@ require([], function() {
       window.localStorage.setItem('di.volume', $('audio#player').prop("volume"));
     });
 
-    window.localStorage.setItem('di.volume', $('audio#player').prop("volume"));
+    var interval = setInterval(function() {
+      var currentVolume = $('audio#player').prop("volume");
+      var target = window.localStorage.getItem('di.volume');
+      var diff = target - currentVolume;
+      var increment = 0.05;
+
+      if (Math.round(diff) <= increment) {
+        clearInterval(interval);
+      }
+      $('audio#player').prop("volume", currentVolume + increment)
+    }, 250);
+    // window.localStorage.setItem('di.volume', $('audio#player').prop("volume"));
   }
 
   var switchTheme = function () {
